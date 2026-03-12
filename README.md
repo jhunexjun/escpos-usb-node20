@@ -49,11 +49,12 @@ Notes in installing Zadig.
 In your project you have this dependency:
 
 ```bash
-  "dependencies": {
-    "escpos": "^3.0.0-alpha.6"
+"dependencies": {
+  "escpos": "^3.0.0-alpha.6",
+  "node-escpos-node20": "github:jhunexjun/node-escpos-node20"
 }
 ```
-You can add it by `npm install escpos` but to be exact the above version is what I used.
+Or you can add it by `npm install escpos jhunexjun/node-escpos-node20` but to be exact the above version is what I used because `npm install escpos` can install different version.
 No need to depend on `usb package` `(npm install usb)` in your project since that's actually dependent to this project, not yours.
     
 ## Usage/Examples
