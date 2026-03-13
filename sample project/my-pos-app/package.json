@@ -1,0 +1,16 @@
+{
+  "name": "my-pos-app",
+  "version": "1.0.0",
+  "main": "print-test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "escpos": "^3.0.0-alpha.6",
+    "escpos-usb-node20": "github:jhunexjun/escpos-usb-node20"
+  }
+}

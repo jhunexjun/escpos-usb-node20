@@ -61,6 +61,32 @@ In your project you have this dependency:
 ```
 Or you can add it by `npm install escpos jhunexjun/escpos-usb-node20` but to be exact the above version is what I used because `npm install escpos` can install different version.
 No need to depend on `usb package` `(npm install usb)` in your project since that's actually dependent to this project, not yours.
+
+### Notes to Vite + Electron
+Most probably you're using Vite because of Electron. In your `vite.main.config.mjs`.
+```bash
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      external: [
+        'usb',
+        'escpos',
+        'escpos-usb-node20'
+      ]
+    }
+  }
+})
+```
+Or probably if you want to experiment:
+```bash
+npm install --save-dev @electron/rebuild
+npx electron-rebuild
+```
+Or specify the module
+```bash
+npx electron-rebuild -f -w usb
+```
+This recompiles usb for Electron's ABI.
 ## Usage/Examples
 
 There are 2 ways for module loading.
