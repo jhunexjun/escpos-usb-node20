@@ -1,4 +1,4 @@
-# escpos-usb-node20
+# node-escpos-node20
 ESC/POS Printer driver for Node.js for node 20 or higher.
 
 This is the project you need for thermal printer using USB.
@@ -30,7 +30,6 @@ makes everything compatible because:
 - usb@1.6.3 still uses the older API that escpos-usb expects.
 - Node 18 is fully supported by the usb module and by native bindings.
 - That’s why your print test works perfectly after installing those versions.
-
 ## Installation
 
 This project was tested using
@@ -50,7 +49,7 @@ Notes in installing Zadig.
 - In my case my printer is Senda Portable Thermal Printer. It's a small printer bought from online.
 - In your Zadig go to Options > List All Devices. 
 - In my case it shows `POS 58 Printer`.
-- You may try `WinUSB (v6.1.7600.16385)` as your drive or `libusbK (v3.0.5.16)`. Can't remember exactly.
+- You may try `WinUSB (v6.1.7600.16385)` as your driver or `libusbK (v3.0.5.16)`. Can't remember exactly.
 
 In your project you have this dependency:
 
@@ -62,12 +61,47 @@ In your project you have this dependency:
 ```
 Or you can add it by `npm install escpos jhunexjun/escpos-usb-node20` but to be exact the above version is what I used because `npm install escpos` can install different version.
 No need to depend on `usb package` `(npm install usb)` in your project since that's actually dependent to this project, not yours.
-    
 ## Usage/Examples
 
+There are 2 ways for module loading.
+
+ES module-way
+```javascript
+import escpos from 'escpos';
+import USB from 'escpos-usb-node20';
+
+escpos.USB = USB;
+// Select the adapter based on your printer type
+// console.log(escpos.USB.findPrinter());
+
+// const device = new escpos.USB(4070, 33054); // example VID/PID
+// or
+const device = new escpos.USB();
+const printer = new escpos.Printer(device);
+device.open(() => {
+  printer
+    .align("CT")
+    .style("B")
+    .size(0.5, 0.5)
+    .text("POS58 TEST Jhun")
+    .text("Electron + Node.js")
+    .cut()
+    .close();
+});
+```
+Note that in ES module way, you'll see a warning
+`(node:4620) [MODULE_TYPELESS_PACKAGE_JSON]`
+To eliminate, add below to your package.json. It's just warning, so the code will just run. For CommonJS, no need to add.
+```bash
+{
+    "type": "module"
+}
+```
+
+CommonJS way
 ```javascript
 const escpos = require('escpos');
-escpos.USB = require('escpos-usb-node20');
+escpos.USB = require('node-escpos-node20');
 
 // Select the adapter based on your printer type
 // console.log(escpos.USB.findPrinter());
